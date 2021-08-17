@@ -1,0 +1,35 @@
+.p {
+  margin: 0;
+  /* font-weight: 400;
+  font-family: "Noto Sans KR", sans-serif;
+  line-height: 24px;
+  color: var(--black);
+  background: #f5f6f8; */
+}
+
+.s {
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.m {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.l {
+  font-size: 18px;
+  line-height: 29px;
+}
+
+.p-big {
+  line-height: 29px;
+}
+
+.p-normal {
+  line-height: 24px;
+}
+
+.p-small {
+  line-height: 21.79px;
+}

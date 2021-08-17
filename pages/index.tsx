@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Htag } from "../components";
+import { Button, Htag, Paragraph } from "../components";
 
 export default function Home(): JSX.Element {
   return (
@@ -11,6 +11,9 @@ export default function Home(): JSX.Element {
       <Button appearance="ghost" arrow="down">
         Кнопка
       </Button>
+      <Paragraph fontSize="l">Большой</Paragraph>
+      <Paragraph>Средний</Paragraph>
+      <Paragraph fontSize="s">Маленький</Paragraph>
     </>
   );
 }
