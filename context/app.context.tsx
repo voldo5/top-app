@@ -7,19 +7,19 @@ export interface IAppContext {
   menu: MenuItem[];
   firstCategory: TopLevelCategory;
   setMenu?: (newMenu: MenuItem[]) => void;
-  searchModel: SearchModel;
+  //searchModel: SearchModel;
 }
 
 export const AppContext = createContext<IAppContext>({
   menu: [],
   firstCategory: TopLevelCategory.Courses,
-  searchModel: { searchQuery: "", searchResult: "" },
+  //searchModel: { searchQuery: "", searchResult: "" },
 });
 
 export const AppContextProvider = ({
   menu,
   firstCategory,
-  searchModel,
+  //searchModel,
   children,
 }: IAppContext & { children: ReactNode }): JSX.Element => {
   const [menuState, setMenuState] = useState<MenuItem[]>(menu);
@@ -29,7 +29,8 @@ export const AppContextProvider = ({
 
   return (
     <AppContext.Provider
-      value={{ menu: menuState, firstCategory, setMenu, searchModel }}
+      //value={{ menu: menuState, firstCategory, setMenu, searchModel }}
+      value={{ menu: menuState, firstCategory, setMenu }}
     >
       {children}
     </AppContext.Provider>
