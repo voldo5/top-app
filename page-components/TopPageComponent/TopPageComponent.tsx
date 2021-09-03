@@ -1,4 +1,4 @@
-import { Htag, Tag } from "../../components";
+import { Advantages, Htag, Paragraph, Tag } from "../../components";
 import { TopPageComponentProps } from "./TopPageComponent.props";
 import styles from "./TopPageComponent.module.css";
 import { HhData } from "../../components/HhData/HhData";
@@ -29,7 +29,22 @@ export const TopPageComponent = ({
           hh.ru
         </Tag>
       </div>
-      {firstCategory == TopLevelCategory.Courses && <HhData {...page.hh} />}
+      {firstCategory == TopLevelCategory.Courses && page.hh && (
+        <HhData {...page.hh} />
+      )}
+      {page.advantages && page.advantages.length > 0 && (
+        <>
+          <Htag tag="h2">Преимущства</Htag>
+          <Advantages advantages={page.advantages} />
+        </>
+      )}
+      {page.seoText && <Paragraph>{page.seoText}</Paragraph>}
+      <Htag tag="h2">Получаемые навыки</Htag>
+      {page.tags.map((t) => (
+        <Tag key={t} color="primary">
+          {t}
+        </Tag>
+      ))}
     </div>
   );
 };
