@@ -79,8 +79,9 @@ export const Menu = (): JSX.Element => {
   };
 
   const buildThirdLevel = (pages: PageItem[], route: string) => {
-    return pages.map((p) => (
-      <Link href={`/${route}/${p.alias}`}>
+    return pages.map((p, index) => (
+      //todo key         key={p._id}
+      <Link href={`/${route}/${p.alias}`} key={index}>
         <a
           className={cn(styles.thirdLevel, {
             [styles.thirdLevelActive]: `/${route}/${p.alias}` == router.asPath,
@@ -91,6 +92,21 @@ export const Menu = (): JSX.Element => {
       </Link>
     ));
   };
+
+  //   const buildThirdLevel = (pages: PageItem[], route: string) => {
+  //     return pages.map((p) => (
+  //       //todo key         key={p._id}
+  //       <Link href={`/${route}/${p.alias}`}>
+  //         <a
+  //           className={cn(styles.thirdLevel, {
+  //             [styles.thirdLevelActive]: `/${route}/${p.alias}` == router.asPath,
+  //           })}
+  //         >
+  //           {p.category}
+  //         </a>
+  //       </Link>
+  //     ));
+  //   };
 
   return <div className={styles.menu}>{buildFirstLevel()}</div>;
 };
