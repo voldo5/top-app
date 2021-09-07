@@ -6,7 +6,7 @@ export * from './Rating/Rating';
 export * from './Advantages/Advantages';
 export * from './Sort/Sort';
 export * from './Input/Input'; 
-
+export * from './Textarea/Textarea';
 
 // export * from './Htag/Htag';
 // export * from './Button/Button';
