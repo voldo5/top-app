@@ -2,7 +2,7 @@ import { motion, useAnimation } from "framer-motion";
 import { useEffect } from "react";
 import { useScrollY } from "../../hooks/useScrollY";
 import styles from "./Up.module.css";
-import UpIcon from "./up.svg";
+import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
 
 export const Up = (): JSX.Element => {
   const controls = useAnimation(); //retuns control which start animation
@@ -21,13 +21,13 @@ export const Up = (): JSX.Element => {
   };
 
   return (
-    <motion.button
+    <motion.div
       className={styles.up}
       onClick={scrollToTop}
       animate={controls} // set the button as control to start animation
       initial={{ opacity: 0 }} // set start opacity of button
     >
-      <UpIcon />
-    </motion.button>
+      <ButtonIcon appearance="primary" icon="up" onClick={scrollToTop} />
+    </motion.div>
   );
 };
