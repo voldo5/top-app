@@ -37,7 +37,7 @@ export const Rating = forwardRef(
 
     const computeFocus = (r: number, i: number): number => {
       if (!isEditable) {
-        return -1;
+        return -1; //если рейтинга нет – устанавливаем рейтинг 1
       }
       if (!rating && i == 0) {
         return tabIndex ?? 0;
@@ -62,7 +62,7 @@ export const Rating = forwardRef(
             onClick={() => onClick(i + 1)}
             tabIndex={computeFocus(rating, i)}
             onKeyDown={handleKey}
-            ref={(r) => ratingArrayRef.current?.push(r)}
+            ref={(r) => ratingArrayRef.current?.push(r)} //move focus simultaneously with "left-right" key click
           >
             <StarIcon />
           </span>
@@ -96,7 +96,7 @@ export const Rating = forwardRef(
           e.preventDefault();
           setRating(rating < 5 ? rating + 1 : 5);
         }
-        ratingArrayRef.current[rating]?.focus();
+        ratingArrayRef.current[rating]?.focus(); //move focus when we click "ArrowRight"
       }
       if (e.code == "ArrowLeft" || e.code == "ArrowDown") {
         e.preventDefault();

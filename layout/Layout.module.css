@@ -34,8 +34,13 @@
   top: 0;
   overflow: hidden;
   height: 0;
+  /* height: 20px; */
   background: var(--primary);
   color: var(--white);
+}
+
+.displayed {
+  height: auto;
 }
 
 @media (max-width: 765px) {
