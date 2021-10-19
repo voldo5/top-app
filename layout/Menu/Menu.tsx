@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import styles from "./Menu.module.css";
 import cn from "classnames";
 import { format } from "date-fns";
