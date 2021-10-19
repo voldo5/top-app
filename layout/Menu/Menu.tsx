@@ -1,49 +1,36 @@
 /* eslint-disable react/jsx-key */
 import styles from "./Menu.module.css";
 import cn from "classnames";
-import { format } from "date-fns";
-import { useContext, useEffect } from "react";
+import { useContext, KeyboardEvent } from "react";
 import { AppContext } from "../../context/app.context";
 import { FirstLevelMenuItem, PageItem } from "../../interfaces/menu.interface";
-import CoursesIcon from "./icons/courses.svg";
-import ServicesIcon from "./icons/services.svg";
-import BooksIcon from "./icons/books.svg";
-import ProductsIcon from "./icons/products.svg";
-import { TopLevelCategory } from "../../interfaces/page.interface";
-import { Paragraph } from "../../components";
 import Link from "next/link";
 import { useRouter } from "next/router";
-
-const firstLevelMenu: FirstLevelMenuItem[] = [
-  {
-    route: "courses",
-    name: "Курсы",
-    icon: <CoursesIcon />,
-    id: TopLevelCategory.Courses,
-  },
-  {
-    route: "services",
-    name: "Сервисы",
-    icon: <ServicesIcon />,
-    id: TopLevelCategory.Services,
-  },
-  {
-    route: "books",
-    name: "Книги",
-    icon: <BooksIcon />,
-    id: TopLevelCategory.Books,
-  },
-  {
-    route: "products",
-    name: "Продукты",
-    icon: <ProductsIcon />,
-    id: TopLevelCategory.Products,
-  },
-];
+import { firstLevelMenu } from "../../helpers/helpers";
+import { motion } from "framer-motion";
 
 export const Menu = (): JSX.Element => {
   const { menu, setMenu, firstCategory } = useContext(AppContext);
   const router = useRouter();
+
+  const variants = {
+    visible: {
+      marginBottom: 20,
+      transition: {
+        when: "beforeChildren",
+        staggerChildren: 0.1,
+      },
+    },
+    hidden: { marginBottom: 0 },
+  };
+
+  const variantsChildren = {
+    visible: {
+      opacity: 1,
+      height: 29,
+    },
+    hidden: { opacity: 0, height: 0 },
+  };
 
   const openSecondLevel = (secondCategory: string) => {
     setMenu &&
@@ -55,6 +42,13 @@ export const Menu = (): JSX.Element => {
           return m;
         })
       );
+  };
+
+  const openSecondLevelKey = (key: KeyboardEvent, secondCategory: string) => {
+    if (key.code == "Space" || key.code == "Enter") {
+      key.preventDefault();
+      openSecondLevel(secondCategory);
+    }
   };
 
   const buildFirstLevel = () => {
@@ -93,18 +87,24 @@ export const Menu = (): JSX.Element => {
           return (
             <div key={m._id.secondCategory}>
               <div
+                tabIndex={0}
+                onKeyDown={(key: KeyboardEvent) =>
+                  openSecondLevelKey(key, m._id.secondCategory)
+                }
                 className={styles.secondLevel}
                 onClick={() => openSecondLevel(m._id.secondCategory)}
               >
                 {m._id.secondCategory}
               </div>
-              <div
-                className={cn(styles.secondLevelBlock, {
-                  [styles.secondLevelBlockOpened]: m.isOpened,
-                })}
+              <motion.div
+                layout
+                variants={variants}
+                initial={m.isOpened ? "visible" : "hidden"}
+                animate={m.isOpened ? "visible" : "hidden"}
+                className={cn(styles.secondLevelBlock)}
               >
-                {buildThirdLevel(m.pages, menuItem.route)}
-              </div>
+                {buildThirdLevel(m.pages, menuItem.route, m.isOpened ?? false)}
+              </motion.div>
             </div>
           );
         })}
@@ -112,17 +112,26 @@ export const Menu = (): JSX.Element => {
     );
   };
 
-  const buildThirdLevel = (pages: PageItem[], route: string) => {
-    return pages.map((p) => (
-      <Link href={`/${route}/${p.alias}`}>
-        <a
-          className={cn(styles.thirdLevel, {
-            [styles.thirdLevelActive]: `/${route}/${p.alias}` == router.asPath,
-          })}
-        >
-          {p.category}
-        </a>
-      </Link>
+  const buildThirdLevel = (
+    pages: PageItem[],
+    route: string,
+    isOpened: boolean
+  ) => {
+    return pages.map((p, index) => (
+      //todo key         key={p._id}
+      <motion.div key={p._id} variants={variantsChildren}>
+        <Link href={`/${route}/${p.alias}`}>
+          <a
+            tabIndex={isOpened ? 0 : -1}
+            className={cn(styles.thirdLevel, {
+              [styles.thirdLevelActive]:
+                `/${route}/${p.alias}` == router.asPath,
+            })}
+          >
+            {p.category}
+          </a>
+        </Link>
+      </motion.div>
     ));
   };
 

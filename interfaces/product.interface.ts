@@ -30,6 +30,7 @@ export interface ProductModel {
 	initialRating: number;
 	reviews: ReviewModel[];
 	reviewCount: number;
-	reviewAvg?: number;
-	advantages: string;
+	reviewAvg?: number;	
+	advantages?: string;
+	disadvantages?: string;
 }
