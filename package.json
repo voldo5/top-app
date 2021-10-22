@@ -10,10 +10,14 @@
     "stylelint": "stylelint \"**/*.css\" --fix"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "classnames": "^2.3.1",
+    "date-fns": "^2.23.0",
+    "framer-motion": "^4.1.17",
     "next": "11.0.1",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-hook-form": "^7.15.3"
   },
   "devDependencies": {
     "@svgr/webpack": "^5.5.0",
@@ -24,6 +28,7 @@
     "@typescript-eslint/parser": "^4.28.5",
     "eslint": "7.32.0",
     "eslint-config-next": "11.0.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
     "stylelint-order": "^4.1.0",
